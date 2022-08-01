@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/maxts0gt/grpc-go-practice/greet/greetpb"
+	pb "github.com/maxts0gt/grpc-go-practice/greet/greetpb"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	fmt.Println("Hello, I am a client!")
+	fmt.Println("Hello from client")
 
 	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 
@@ -19,7 +19,8 @@ func main() {
 
 	defer cc.Close()
 
-	c := greetpb.NewGreetServiceClient(cc)
+	c := pb.NewGreetServiceClient(cc)
+
 	fmt.Printf("Created client: %f", c)
 
 }

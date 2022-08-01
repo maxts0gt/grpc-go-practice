@@ -5,18 +5,16 @@ import (
 	"log"
 	"net"
 
-	"github.com/maxts0gt/grpc-go-practice/greet/greetpb"
+	pb "github.com/maxts0gt/grpc-go-practice/greet/greetpb"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/examples/helloworld/helloworld"
 )
 
 type server struct {
-	// Embed the unimplemented server
-	helloworld.UnimplementedGreeterServer
+	pb.UnimplementedGreetServiceServer
 }
 
 func main() {
-	fmt.Println("Hello world!")
+	fmt.Println("Hello from server!")
 
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 
@@ -25,7 +23,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	greetpb.RegisterGreetServiceServer(s, &server{})
+	pb.RegisterGreetServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
